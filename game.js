@@ -605,8 +605,8 @@ resetGame() {
   /******************** SETTINGS ACCESS ******************/
   createSettingsButton() {
     this.add.text(
-      CONFIG.width - 40,
-      CONFIG.height - 40,
+      CONFIG.width - 80,
+      CONFIG.height - 80,
       '⚙',
       { fontSize: '48px', color: '#ffffff' }
     ).setOrigin(0.5).setInteractive()
