@@ -16,17 +16,82 @@
       height: 100%;
       overflow: hidden;
     }
-
+  /* Phaser mounts the canvas here */
+    #game-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
     canvas {
       display: block;
       margin: auto;
       touch-action: none;
     }
   </style>
-
+  // Phaser library 
   <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.js"></script>
+  
 </head>
 <body>
+  <div id="game-container"></div>
   <script src="game.js"></script>
 </body>
 </html>
+
+// NEW CODE
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <title>Card Game</title>
+
+  // Mobile / tablet friendliness
+  <meta name="viewport"
+        content="width=device-width,
+                 height=device-height,
+                 initial-scale=1.0,
+                 maximum-scale=1.0,
+                 user-scalable=no" />
+
+  <style>
+    /* Remove all browser padding / scroll */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      overflow: hidden;
+      touch-action: none;
+    }
+
+    /* Phaser mounts the canvas here */
+    #game-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    /* Defensive: ensure canvas is not constrained */
+    canvas {
+      display: block;
+    }
+  </style>
+  
+</head>
+
+<body>
+
+  <//Phaser canvas will be injected here 
+  <div id="game-container"></div>
+
+  // Phaser library 
+  <script src="phaser.min.js"></script>
+
+  // Your game code (creates new Phaser.Game) 
+  <script src="game.js"></script>
+
+</body>
+</html> -->

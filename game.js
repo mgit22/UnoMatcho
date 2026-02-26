@@ -37,14 +37,37 @@ function applyScanSpeed(settings) {
   else settings.scanTime = 2000;
 }
 
-function tryFullscreen() {
-  if (this.settings.autoFullscreen && !this.scale.isFullscreen) {
-    this.scale.startFullscreen();
-  }
-}
+// function tryFullscreen() {
+//   if (this.settings.autoFullscreen && !this.scale.isFullscreen) {
+//     this.scale.startFullscreen();
+//   }
+// }
 
 /******************** CONSTANTS **************************/
 const CONFIG = { width: 1280, height: 800 };
+const DESIGN_WIDTH = 1280;
+const DESIGN_HEIGHT = 800;
+
+// const CONFIG = {
+//   type: Phaser.AUTO,
+//   parent: 'game-container',
+//   backgroundColor: '#000000',
+
+//   scale: {
+//     mode: Phaser.Scale.FIT,
+//     autoCenter: Phaser.Scale.CENTER_BOTH,
+//     width: DESIGN_WIDTH,
+//     height: DESIGN_HEIGHT
+//   },
+
+//   scene: [
+//     GameScene,
+//     SettingsScene
+//   ]
+// };
+
+//const game = new Phaser.Game(config);
+
 const CARD_WIDTH = 240;
 const CARD_HEIGHT = 360;
 const ACTIVE_CARD_SCALE = 1.25;
@@ -784,10 +807,21 @@ createScoreGoalSetting(x, y) {
 }
 
 /******************** INIT *******************************/
-new Phaser.Game({
-  type: Phaser.AUTO,
-  width: CONFIG.width,
-  height: CONFIG.height,
-  backgroundColor: '#000000',
-  scene: [GameScene, SettingsScene]
-});
+// const DESIGN_WIDTH = 1280;
+// const DESIGN_HEIGHT = 800;
+
+/******************** INIT *******************************/ 
+new Phaser.Game({ 
+          type: Phaser.AUTO, 
+          parent: 'game-container',
+          width: CONFIG.width, 
+          height: CONFIG.height, 
+          scale: {
+                  mode: Phaser.Scale.FIT,
+                  autoCenter: Phaser.Scale.CENTER_BOTH,
+                  width: DESIGN_WIDTH,
+                  height: DESIGN_HEIGHT
+                  },
+          backgroundColor: '#000000', 
+          scene: [GameScene, SettingsScene] 
+          });
