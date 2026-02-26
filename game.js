@@ -131,7 +131,7 @@ class GameScene extends Phaser.Scene {
   constructor() { super('Game'); }
 
   preload() {
-    this.load.spritesheet('deck', 'assets/deck2.png', {
+    this.load.spritesheet('deck', 'assets/deck.png', {
       frameWidth: CARD_WIDTH,
       frameHeight: CARD_HEIGHT
     });
