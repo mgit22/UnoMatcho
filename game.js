@@ -3,6 +3,8 @@
  *********************************************************/
 
 /******************** SETTINGS ***************************/
+const APP_VERSION = 'v1.1.0';
+
 const DEFAULT_SETTINGS = {
   inputMethod: 'leftClick',
   clickAnywhere: true,
@@ -742,6 +744,19 @@ class SettingsScene extends Phaser.Scene {
     addToggle('Animations', 'animationsEnabled');
     addToggle('Debug Mode', 'debugMode');
 
+const versionText = this.add.text(
+  this.scale.width / 2,
+  this.scale.height - 24,
+  `${APP_VERSION}`,
+  {
+    fontSize: '22px',
+    color: '#888888'
+  }
+);
+
+versionText
+  .setOrigin(0.5, 1)
+  .setAlpha(0.8);
 
     this.add.text(
       CONFIG.width / 2,
