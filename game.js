@@ -3,7 +3,7 @@
  *********************************************************/
 
 /******************** SETTINGS ***************************/
-const APP_VERSION = 'v1.1.0';
+const APP_VERSION = 'v1.1.3';
 
 const DEFAULT_SETTINGS = {
   inputMethod: 'leftClick',
@@ -841,3 +841,4 @@ new Phaser.Game({
           scene: [GameScene, SettingsScene] 
 
           });
+
