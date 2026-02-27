@@ -15,7 +15,7 @@ const DEFAULT_SETTINGS = {
   repeatTargetUntilCorrect: true,
   trainingMode: false,
   highContrast: true,
-  autoFullscreen: true,
+  autoFullscreen: false,
   debugMode: false,
   scoreGoal: 5
 };
@@ -839,4 +839,5 @@ new Phaser.Game({
                   },
           backgroundColor: '#000000', 
           scene: [GameScene, SettingsScene] 
+
           });
