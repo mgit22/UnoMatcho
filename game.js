@@ -3,7 +3,7 @@
  *********************************************************/
 
 /******************** SETTINGS ***************************/
-const APP_VERSION = 'v1.1.3';
+const APP_VERSION = 'v1.2.0';
 
 const DEFAULT_SETTINGS = {
   inputMethod: 'leftClick',
@@ -15,7 +15,7 @@ const DEFAULT_SETTINGS = {
   repeatTargetUntilCorrect: true,
   trainingMode: false,
   highContrast: true,
-  autoFullscreen: true,
+  autoFullscreen: false,
   debugMode: false,
   scoreGoal: 5
 };
