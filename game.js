@@ -15,7 +15,7 @@ const DEFAULT_SETTINGS = {
   repeatTargetUntilCorrect: true,
   trainingMode: false,
   highContrast: true,
-  autoFullscreen: false,
+  autoFullscreen: true,
   debugMode: false,
   scoreGoal: 5
 };
@@ -75,6 +75,12 @@ const CARD_HEIGHT = 360;
 const ACTIVE_CARD_SCALE = 1.25;
 const TRAY_CARD_SCALE = .75;
 const GOAL_VALUES = [1, 5, 10, 15, 20];
+
+const ActionContext = {
+  GAMEPLAY: 'gameplay',
+  VICTORY: 'victory',
+  CAREGIVER: 'settings'
+};
 
 /******************** CARD DEFINITIONS *******************/
 const COLORS = ['red', 'blue', 'yellow', 'green'];
@@ -155,6 +161,7 @@ const CARD_MAP = [
 class GameScene extends Phaser.Scene {
   constructor() { super('Game'); }
 
+
   preload() {
     this.load.spritesheet('deck', 'assets/deck.png', {
       frameWidth: CARD_WIDTH,
@@ -230,10 +237,14 @@ class GameScene extends Phaser.Scene {
     this.trayDebugText = [];
     this.scanBox = this.add.graphics();
 
+    this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+    
     this.createSettingsButton();
     this.setupInput();
     this.setupHiddenSettingsAccess();
     this.startRound();
+
   }
 
   /******************** SCANNING CONTROL *****************/
@@ -327,16 +338,36 @@ class GameScene extends Phaser.Scene {
   }
   
 
-  /******************** INPUT ****************************/
-  setupInput() {
-    this.input.on('pointerdown', () => {
-      if (!this.isLocked) this.selectCurrentCard();
-        if (this.inVictory) {
-            if (this.canReset) this.resetGame();
-            return;
-        }
-    });
+  selectCard(card) {
+    if (card.isMatched) return;
+
+    card.setFillStyle(0x00ff00);
+    card.isMatched = true;
+
+    this.score++;
+
+    if (this.score >= this.scoreGoal) {
+      this.triggerVictory();
+    }
   }
+
+  /******************** INPUT ****************************/
+
+  setupInput() 
+  {
+    this.input.on('pointerdown', () => this.subTakeAction());
+    this.spaceKey.on('down', () => this.subTakeAction());
+    this.enterKey.on('down', () => this.subTakeAction());
+  }
+
+
+  subTakeAction() {
+                if (!this.isLocked) this.selectCurrentCard();
+                      if (this.inVictory) {
+                          if (this.canReset) this.resetGame();
+                          return;
+                      }
+            }
 
   selectCurrentCard() {
     this.isLocked = true;
@@ -839,6 +870,4 @@ new Phaser.Game({
                   },
           backgroundColor: '#000000', 
           scene: [GameScene, SettingsScene] 
-
           });
-
