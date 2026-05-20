@@ -17,7 +17,8 @@ const DEFAULT_SETTINGS = {
   highContrast: true,
   autoFullscreen: false,
   debugMode: false,
-  scoreGoal: 5
+  scoreGoal: 5,
+  uniqueColors: false
 };
 
 const SETTINGS_KEY = 'jop-neung-ku-settings';
@@ -304,15 +305,51 @@ class GameScene extends Phaser.Scene {
       this.settings.debugMode ? this.activeCard.id : ''
     );
 
-    const decoys = Phaser.Utils.Array.Shuffle(
-      CARD_MAP.filter(c => c.id !== this.activeCard.id)
+//removed with color matching code update
+    // const decoys = Phaser.Utils.Array.Shuffle(
+    //   CARD_MAP.filter(c => c.id !== this.activeCard.id)
+    // );
+
+    // this.optionSet = Phaser.Utils.Array.Shuffle([
+    //   this.activeCard,
+    //   decoys[0],
+    //   decoys[1]
+    // ]);
+  
+//added with color matching update
+const getColor = card => card.id.split('-')[0];
+
+const tray = [this.activeCard];
+
+while (tray.length < 3) {
+
+  const candidate = Phaser.Utils.Array.GetRandom(CARD_MAP);
+
+  // Never allow duplicate exact card
+  if (candidate.id === this.activeCard.id) continue;
+
+  // Never allow duplicate cards already in tray
+  if (tray.some(card => card.id === candidate.id)) continue;
+
+  // UNIQUE COLORS MODE
+  if (this.settings.uniqueColors) {
+
+    const candidateColor = getColor(candidate);
+
+    // Reject duplicate tray colors
+    const duplicateColor = tray.some(card =>
+      getColor(card) === candidateColor
     );
 
-    this.optionSet = Phaser.Utils.Array.Shuffle([
-      this.activeCard,
-      decoys[0],
-      decoys[1]
-    ]);
+    if (duplicateColor) continue;
+  }
+
+  tray.push(candidate);
+}
+
+this.optionSet = Phaser.Utils.Array.Shuffle(tray);
+
+//--------------------------------------------------------
 
     this.tray.forEach(s => s.destroy());
     this.trayDebugText.forEach(t => t.destroy());
@@ -770,10 +807,12 @@ class SettingsScene extends Phaser.Scene {
     // }
     addToggle('Auto Fullscreen', 'autoFullscreen');
     addToggle('Training Mode', 'trainingMode');
+    addToggle('Unique Colors', 'uniqueColors');
     addToggle('Repeat Until Correct', 'repeatTargetUntilCorrect');
     addToggle('Sound Effects', 'soundEnabled');
     addToggle('Animations', 'animationsEnabled');
     addToggle('Debug Mode', 'debugMode');
+    
 
 const versionText = this.add.text(
   this.scale.width / 2,
